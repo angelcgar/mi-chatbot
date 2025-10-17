@@ -1,7 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef } from 'react';
 
 // Tipos
-type Role = "system" | "user" | "assistant";
+type Role = 'system' | 'user' | 'assistant';
 
 interface Message {
 	role: Role;
@@ -18,7 +18,7 @@ interface ChatResponse {
 
 export default function ChatBot() {
 	const [messages, setMessages] = useState<Message[]>([]);
-	const [input, setInput] = useState("");
+	const [input, setInput] = useState('');
 	const [loading, setLoading] = useState(false);
 
 	const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -26,34 +26,34 @@ export default function ChatBot() {
 	const handleSend = async () => {
 		if (!input.trim()) return;
 
-		const newMessages = [...messages, { role: "user", content: input }];
+		const newMessages = [...messages, { role: 'user', content: input }];
 
 		setMessages(newMessages);
-		console.log(newMessages, "newMessages");
-		setInput("");
+		console.log(newMessages, 'newMessages');
+		setInput('');
 		setLoading(true);
 
-		const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-			method: "POST",
+		const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${import.meta.env.VITE_SECRET_KEY_OPENROUTER}`,
-				"Content-Type": "application/json",
-				"HTTP-Referer": "http://localhost",
-				"X-Title": "mi-chatbot",
+				'Content-Type': 'application/json',
+				'HTTP-Referer': 'http://localhost',
+				'X-Title': 'mi-chatbot',
 			},
 			body: JSON.stringify({
-				model: "mistralai/mistral-7b-instruct",
+				model: 'mistralai/mistral-7b-instruct',
 				messages: [
-					{ role: "system", content: "Eres un asistente útil." },
+					{ role: 'system', content: 'Eres un asistente útil.' },
 					...newMessages,
 				],
 			}),
 		});
 
 		const data = await res.json();
-		const botReply = data.choices?.[0]?.message?.content ?? "[Sin respuesta]";
+		const botReply = data.choices?.[0]?.message?.content ?? '[Sin respuesta]';
 
-		setMessages([...newMessages, { role: "assistant", content: botReply }]);
+		setMessages([...newMessages, { role: 'assistant', content: botReply }]);
 		setLoading(false);
 	};
 
@@ -99,19 +99,19 @@ export default function ChatBot() {
 					{messages.map((msg, i) => (
 						<div
 							key={i}
-							className={`max-w-[85%] ${msg.role === "user" ? "ml-auto" : "mr-auto"}`}
+							className={`max-w-[85%] ${msg.role === 'user' ? 'ml-auto' : 'mr-auto'}`}
 						>
 							<div
-								className={`rounded-xl py-3 px-4 shadow-sm ${msg.role === "user" ? "bg-amber-500 text-white rounded-br-none" : "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-bl-none"}`}
+								className={`rounded-xl py-3 px-4 shadow-sm ${msg.role === 'user' ? 'bg-amber-500 text-white rounded-br-none' : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-bl-none'}`}
 							>
 								<div className="text-sm leading-relaxed whitespace-pre-wrap">
 									{msg.content}
 								</div>
 							</div>
 							<div
-								className={`text-xs mt-1 ${msg.role === "user" ? "text-right text-gray-400" : "text-left text-gray-400"}`}
+								className={`text-xs mt-1 ${msg.role === 'user' ? 'text-right text-gray-400' : 'text-left text-gray-400'}`}
 							>
-								{msg.role === "user" ? "Tú" : "Bot"}
+								{msg.role === 'user' ? 'Tú' : 'Bot'}
 							</div>
 						</div>
 					))}
@@ -130,7 +130,7 @@ export default function ChatBot() {
 					<input
 						value={input}
 						onChange={(e) => setInput(e.target.value)}
-						onKeyDown={(e) => e.key === "Enter" && handleSend()}
+						onKeyDown={(e) => e.key === 'Enter' && handleSend()}
 						placeholder="Escribe tu mensaje..."
 						className="flex-1 bg-transparent outline-none placeholder:text-gray-400 text-gray-900 dark:text-gray-100 text-sm"
 						disabled={loading}
