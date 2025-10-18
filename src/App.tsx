@@ -1,12 +1,8 @@
-import ChatBot from "./ChatBot";
-import "./App.css";
+import ChatBot from './ChatBot';
+import './App.css';
 
 function App() {
-  return (
-    <>
-      <ChatBot />
-    </>
-  );
+	return <ChatBot />;
 }
 
 export default App;

@@ -61,9 +61,10 @@ export default function ChatBot() {
 	};
 
 	return (
-		<div className="mx-auto w-full max-w-4xl">
-			{/* Header */}
-			<header className="flex items-center justify-between mb-6">
+		<body className="w-screen h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
+			<div className="mx-auto w-full max-w-4xl">
+				{/* Header */}
+				{/* <header className="flex items-center justify-between mb-6">
 				<div>
 					<h1 className="flex items-center gap-3 text-2xl font-semibold text-gray-800 dark:text-gray-100">
 						<span className="text-amber-500">💬</span>
@@ -82,79 +83,84 @@ export default function ChatBot() {
 						Acciones
 					</button>
 				</div>
-			</header>
+			</header> */}
 
-			{/* Container */}
-			<div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
-				{/* Messages area */}
-				<div
-					ref={scrollRef}
-					className="h-[60vh] md:h-[65vh] lg:h-[70vh] p-6 overflow-y-auto space-y-4 bg-gradient-to-b from-white to-gray-50 dark:from-gray-800 dark:to-gray-900"
-				>
-					{messages.length === 0 && (
-						<div className="flex justify-center">
-							<div className="text-sm text-gray-400">
-								Aún no hay mensajes — escribe abajo para empezar
-							</div>
-						</div>
-					)}
+				<h3 className="text-center text-sm text-gray-400 dark:text-gray-500 mb-2">
+					app gpt inteligente
+				</h3>
 
-					{messages.map((msg, i) => (
-						<div
-							key={i}
-							className={`max-w-[85%] ${msg.role === 'user' ? 'ml-auto' : 'mr-auto'}`}
-						>
-							<div
-								className={`rounded-xl py-3 px-4 shadow-sm ${msg.role === 'user' ? 'bg-amber-500 text-white rounded-br-none' : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-bl-none'}`}
-							>
-								<div className="text-sm leading-relaxed whitespace-pre-wrap">
-									{msg.content}
+				{/* Container */}
+				<div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
+					{/* Messages area */}
+					<div
+						ref={scrollRef}
+						className="flex-1 p-6 overflow-y-auto space-y-4 bg-gradient-to-b from-white to-gray-50 dark:from-gray-800 dark:to-gray-900"
+					>
+						{messages.length === 0 && (
+							<div className="flex justify-center items-center h-full">
+								<div className="text-sm text-gray-400">
+									Aún no hay mensajes — escribe abajo para empezar
 								</div>
 							</div>
+						)}
+
+						{messages.map((msg, i) => (
 							<div
-								className={`text-xs mt-1 ${msg.role === 'user' ? 'text-right text-gray-400' : 'text-left text-gray-400'}`}
+								key={i}
+								className={`max-w-[85%] ${msg.role === 'user' ? 'ml-auto' : 'mr-auto'}`}
 							>
-								{msg.role === 'user' ? 'Tú' : 'Bot'}
+								<div
+									className={`rounded-xl py-3 px-4 shadow-sm ${msg.role === 'user' ? 'bg-amber-400/80 dark:bg-amber-400/70' : 'bg-gray-200/70 dark:bg-gray-700/70 text-gray-800 dark:text-gray-100 rounded-bl-none'}`}
+								>
+									<div className="text-sm leading-relaxed whitespace-pre-wrap max-w-prose">
+										{msg.content}
+									</div>
+								</div>
+								<div
+									className={`text-xs mt-1 ${msg.role === 'user' ? 'text-right text-gray-400' : 'text-left text-gray-400'}`}
+								>
+									{msg.role === 'user' ? 'Tú' : 'Bot'}
+								</div>
 							</div>
-						</div>
-					))}
+						))}
 
-					{loading && (
-						<div className="max-w-[60%] mr-auto">
-							<div className="rounded-xl py-3 px-4 shadow-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-100">
-								⏳ Pensando...
+						{loading && (
+							<div className="max-w-[60%] mr-auto">
+								<div className="rounded-xl py-3 px-4 shadow-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-100">
+									⏳ Pensando...
+								</div>
 							</div>
-						</div>
-					)}
+						)}
+					</div>
+
+					{/* Input area */}
+					<div className="border-t border-gray-200 dark:border-gray-700 p-4 flex gap-3 items-center">
+						<input
+							value={input}
+							onChange={(e) => setInput(e.target.value)}
+							onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+							placeholder="Escribe tu mensaje..."
+							className="flex-1 bg-transparent outline-none placeholder:text-gray-400 text-gray-900 dark:text-gray-100 text-sm"
+							disabled={loading}
+						/>
+
+						<button
+							onClick={handleSend}
+							disabled={loading}
+							className="inline-flex items-center gap-2 rounded-md bg-amber-500 hover:bg-amber-600 disabled:bg-amber-300 text-white px-4 py-2 text-sm shadow-sm"
+							type="button"
+						>
+							Enviar
+						</button>
+					</div>
 				</div>
 
-				{/* Input area */}
-				<div className="border-t border-gray-200 dark:border-gray-700 p-4 flex gap-3 items-center">
-					<input
-						value={input}
-						onChange={(e) => setInput(e.target.value)}
-						onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-						placeholder="Escribe tu mensaje..."
-						className="flex-1 bg-transparent outline-none placeholder:text-gray-400 text-gray-900 dark:text-gray-100 text-sm"
-						disabled={loading}
-					/>
-
-					<button
-						onClick={handleSend}
-						disabled={loading}
-						className="inline-flex items-center gap-2 rounded-md bg-amber-500 hover:bg-amber-600 disabled:bg-amber-300 text-white px-4 py-2 text-sm shadow-sm"
-						type="button"
-					>
-						Enviar
-					</button>
-				</div>
+				{/* Footer small note */}
+				<p className="mt-4 text-xs text-center text-gray-500 dark:text-gray-400">
+					Diseño con Tailwind — dime si quieres ajuste en colores, tamaños o
+					comportamiento.
+				</p>
 			</div>
-
-			{/* Footer small note */}
-			<p className="mt-4 text-xs text-center text-gray-500 dark:text-gray-400">
-				Diseño con Tailwind — dime si quieres ajuste en colores, tamaños o
-				comportamiento.
-			</p>
-		</div>
+		</body>
 	);
 }
