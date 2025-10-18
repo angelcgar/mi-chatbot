@@ -8,13 +8,13 @@ interface Message {
 	content: string;
 }
 
-interface ChatResponse {
-	choices?: {
-		message?: {
-			content?: string;
-		};
-	}[];
-}
+// interface ChatResponse {
+// 	choices?: {
+// 		message?: {
+// 			content?: string;
+// 		};
+// 	}[];
+// }
 
 export default function ChatBot() {
 	const [messages, setMessages] = useState<Message[]>([]);
@@ -26,10 +26,13 @@ export default function ChatBot() {
 	const handleSend = async () => {
 		if (!input.trim()) return;
 
-		const newMessages = [...messages, { role: 'user', content: input }];
+		const newMessages: Message[] = [
+			...messages,
+			{ role: 'user', content: input },
+		];
 
 		setMessages(newMessages);
-		console.log(newMessages, 'newMessages');
+		// console.log(newMessages, 'newMessages');
 		setInput('');
 		setLoading(true);
 
