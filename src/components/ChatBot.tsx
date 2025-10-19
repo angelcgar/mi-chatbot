@@ -25,7 +25,14 @@ export default function ChatBot() {
 	}
 
 	return (
-		<div className="w-screen h-screen flex flex-col">
+		<div className="w-screen h-screen flex flex-col bg-gray-50 dark:bg-neutral-900">
+			{messages.length === 0 && (
+				<header>
+					<h3 className="text-center text-sm text-gray-400 dark:text-gray-500 mb-2">
+						app gpt inteligente
+					</h3>
+				</header>
+			)}
 			<ChatMessages messages={messages} loading={loading} />
 			<ChatInput
 				value={input}
