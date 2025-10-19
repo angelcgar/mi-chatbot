@@ -9,7 +9,7 @@ export function ChatInput({ value, disabled, onSend, onChange }: InputProps) {
 	return (
 		<div className="p-4 border-t flex gap-3">
 			<input
-				className="flex-1 active:border-none"
+				className="flex-1 shadow-2xl bg-neutral-800  text-white px-4 py-2 border-none outline-none focus:outline-none focus:ring-0 rounded-full"
 				value={value}
 				disabled={disabled}
 				onChange={(e) => onChange(e.target.value)}
@@ -19,7 +19,7 @@ export function ChatInput({ value, disabled, onSend, onChange }: InputProps) {
 				onClick={onSend}
 				disabled={disabled}
 				type="button"
-				className="bg-blue-500 text-white px-4 py-2 rounded-md disabled:bg-blue-300"
+				className="bg-blue-500 text-white px-4 py-2 disabled:bg-blue-300 rounded-full"
 			>
 				Enviar
 			</button>
