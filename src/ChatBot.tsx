@@ -8,14 +8,6 @@ interface Message {
 	content: string;
 }
 
-// interface ChatResponse {
-// 	choices?: {
-// 		message?: {
-// 			content?: string;
-// 		};
-// 	}[];
-// }
-
 export default function ChatBot() {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [input, setInput] = useState('');
@@ -61,7 +53,12 @@ export default function ChatBot() {
 	};
 
 	return (
-		<body className="w-screen h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
+		<div className="w-screen h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
+			<header>
+				<h3 className="text-center text-sm text-gray-400 dark:text-gray-500 mb-2">
+					app gpt inteligente
+				</h3>
+			</header>
 			<div className="mx-auto w-full max-w-4xl">
 				{/* Header */}
 				{/* <header className="flex items-center justify-between mb-6">
@@ -84,10 +81,6 @@ export default function ChatBot() {
 					</button>
 				</div>
 			</header> */}
-
-				<h3 className="text-center text-sm text-gray-400 dark:text-gray-500 mb-2">
-					app gpt inteligente
-				</h3>
 
 				{/* Container */}
 				<div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
@@ -161,6 +154,6 @@ export default function ChatBot() {
 					comportamiento.
 				</p>
 			</div>
-		</body>
+		</div>
 	);
 }
