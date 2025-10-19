@@ -5,7 +5,7 @@ export async function sendToModel(messages: Message[]): Promise<string> {
 	const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
 		method: 'POST',
 		headers: {
-			Authorization: `Bearer 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`,
+			Authorization: `Bearer ${import.meta.env.VITE_SECRET_KEY_OPENROUTER}`,
 			'Content-Type': 'application/json',
 			'HTTP-Referer': 'http://localhost',
 			'X-Title': 'mi-chatbot',
